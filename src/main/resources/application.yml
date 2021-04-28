@@ -1,0 +1,9 @@
+spring:
+  profiles:
+    active: local
+  kafka:
+    consumer:
+        bootstrap-servers: broker:29092
+        key-deserializer: org.apache.kafka.common.serialization.LongDeserializer
+        value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+        group-id: group1

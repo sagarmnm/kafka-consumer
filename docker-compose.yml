@@ -1,0 +1,6 @@
+version: '2'
+services:
+  consumer:
+    build: .
+    ports:
+      - "8002:8002"
