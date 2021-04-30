@@ -1,6 +1,6 @@
-package com.sg.spafka.controller;
+package com.sg.spark.controller;
 
-import com.sg.spafka.utils.SGConsumer;
+import com.sg.spark.utils.SGKafkaConsumer;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -8,8 +8,8 @@ import org.springframework.web.bind.annotation.RestController;
 public class SparkController {
     @PostMapping("/kafka-outbound/message")
     public String processKafkaOutboundMessage() {
-        SGConsumer sgConsumer = new SGConsumer();
-        sgConsumer.receiveOutboundKafkaMessage(null);
+        SGKafkaConsumer sgKafkaConsumer = new SGKafkaConsumer();
+        sgKafkaConsumer.receiveOutboundKafkaMessage(null);
         return "";
     }
 }

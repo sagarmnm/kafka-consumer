@@ -1,4 +1,4 @@
-package com.sg.spafka.utils;
+package com.sg.spark.utils;
 
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,13 +9,15 @@ import org.springframework.stereotype.Component;
 import java.io.Serializable;
 
 @Component
-public class SGConsumer implements Serializable {
+public class SGKafkaConsumer implements Serializable {
     @Autowired
     KafkaTemplate<Long, String> kafkaTemplate;
 
+    @Autowired
+    SGSparkProducer sparkProducer;
+
     @KafkaListener(topics = {"sgtopic"})
     public void receiveOutboundKafkaMessage(ConsumerRecord<Long, String> consumerRecord)   {
-        SGSparkProcessor sgSparkProcessor = new SGSparkProcessor();
-        sgSparkProcessor.mapToAsciis();
+        sparkProducer.mapToAsciis(consumerRecord.value());
     }
 }

@@ -9,9 +9,9 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.sg</groupId>
-	<artifactId>spafka-consumer</artifactId>
+	<artifactId>kafka-consumer</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>spafka-consumer</name>
+	<name>kafka-consumer</name>
 	<description>Demo project for Spring Boot</description>
 	<properties>
 		<java.version>11</java.version>

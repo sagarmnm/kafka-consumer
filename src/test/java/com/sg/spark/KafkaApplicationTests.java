@@ -1,10 +1,10 @@
-package com.sg.spafka;
+package com.sg.spark;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class SpafkaApplicationTests {
+class KafkaApplicationTests {
 
 	@Test
 	void contextLoads() {
