@@ -1,5 +1,6 @@
 package com.sg.spark.utils;
 
+import lombok.extern.log4j.Log4j2;
 import org.apache.spark.SparkConf;
 import org.apache.spark.api.java.JavaRDD;
 import org.apache.spark.api.java.JavaSparkContext;
@@ -13,6 +14,7 @@ import java.util.Iterator;
 import java.util.List;
 
 @Component
+@Log4j2
 public class SGSparkProducer implements Serializable {
 
     @Value("${spark.appName}")
@@ -23,21 +25,17 @@ public class SGSparkProducer implements Serializable {
 
     public void mapToAsciis(String value) {
         SparkConf sc = new SparkConf().setAppName(sparkAppName).setMaster(sparkMaster);
-        System.out.println("in map to asciis");
+        log.debug("mapToAsciis method: " + value);
         // new JavaSparkContext(sc).broadcast(value);
         JavaSparkContext javaSparkContext = new JavaSparkContext(sc);
         JavaRDD<String> splitValueList = javaSparkContext.parallelize(Arrays.asList(value.split(" ")));
-        System.out.println("************** after parallelize");
+        log.debug("mapToAsciis method: " + "after Spark parallelize");
         JavaRDD<String> mappedValues = splitValueList.flatMap(
-                new FlatMapFunction<String, String>() {
-                    public Iterator<String> call(String s){
-                        return Arrays.asList(s.toUpperCase()).iterator();
-                    }
-
-                }
+                (FlatMapFunction<String, String>) s -> Arrays.asList(s.toUpperCase()).iterator()
         );
-        System.out.println("************** " + mappedValues.count());
-        mappedValues.collect().forEach(System.out::println);
+        for (String str : mappedValues.collect()) {
+            log.debug(str);
+        }
         javaSparkContext.close();
 
     }
